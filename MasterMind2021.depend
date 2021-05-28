@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1622227636 source:c:\users\leo.velloni\onedrive - hesso\documents\mastermind2021\mastermind2021\main.cpp
+	<iostream>
+	<graphics.h>
+	<stdio.h>
+	<conio.h>
+	<dos.h>
+	<windows.h>
+
