@@ -6,7 +6,9 @@
 #include <windows.h>
 
 //using namespace std;
+int tab [11][4];
 
+void init();
 
 void setCircle(int x, int y, int color, int rayon);
 void setBoard(int topleftx, int toplefty, int bottomrightx,int bottomrighty, int color);
@@ -39,52 +41,83 @@ int main()
     setBoard(topleftx, toplefty, bottomrightx, bottomrighty, LIGHTBLUE);
 
 
-    //Affiche un cercle rose
-    /*
-    setCircle(topleftx+45, 150, LIGHTMAGENTA);
-    setCircle(topleftx+125, 150, LIGHTMAGENTA);
-    setCircle(topleftx+205, 150, LIGHTMAGENTA);
-    setCircle(topleftx+285, 150, LIGHTMAGENTA);
-
-    setCircle(topleftx+45, 230, LIGHTMAGENTA);
-    setCircle(topleftx+45, 310, LIGHTMAGENTA);
-    setCircle(topleftx+45, 390, LIGHTMAGENTA);
-    setCircle(topleftx+45, 470, LIGHTMAGENTA);
-    setCircle(topleftx+45, 550, LIGHTMAGENTA);
-    setCircle(topleftx+45, 630, LIGHTMAGENTA);
-    setCircle(topleftx+45, 710, LIGHTMAGENTA);
-    setCircle(topleftx+45, 790, LIGHTMAGENTA);
-    */
-
-    //Affiche les pastilles marquant les emplacements des pions de couleurs
-    for(int y=0; y<=10; y++)
+    init();
+    while(1)
     {
-        for(int x=0; x<=3; x++)
-        {
-            setCircle(topleftx+45+(offsetPastilleX*x), toplefty+45+(offsetPastilleY*y), LIGHTMAGENTA, 22);
-        }
-    }
 
-    //Affiche les pastilles pour les emplacements de indicateurs
-    for(int i=0; i<=9; i++)
-    {
-        for(int y=0; y<=1; y++)
+
+
+        //Affiche un cercle rose
+        /*
+        setCircle(topleftx+45, 150, LIGHTMAGENTA);
+        setCircle(topleftx+125, 150, LIGHTMAGENTA);
+        setCircle(topleftx+205, 150, LIGHTMAGENTA);
+        setCircle(topleftx+285, 150, LIGHTMAGENTA);
+
+        setCircle(topleftx+45, 230, LIGHTMAGENTA);
+        setCircle(topleftx+45, 310, LIGHTMAGENTA);
+        setCircle(topleftx+45, 390, LIGHTMAGENTA);
+        setCircle(topleftx+45, 470, LIGHTMAGENTA);
+        setCircle(topleftx+45, 550, LIGHTMAGENTA);
+        setCircle(topleftx+45, 630, LIGHTMAGENTA);
+        setCircle(topleftx+45, 710, LIGHTMAGENTA);
+        setCircle(topleftx+45, 790, LIGHTMAGENTA);
+        */
+
+        //Affiche les pastilles marquant les emplacements des pions de couleurs
+        for(int y=0; y<=10; y++)
         {
-            for(int x=0; x<=1; x++)
+            for(int x=0; x<=3; x++)
             {
-                setCircle(topleftx+350+(offsetIndicatorX*x), toplefty+89+(offsetIndicatorY*y)+(i*offsetIndicatorSet), LIGHTGREEN, 8);
+                setCircle(topleftx+45+(offsetPastilleX*x), toplefty+45+(offsetPastilleY*y), tab[y][x], 22);
+
             }
         }
+
+        //Affiche les pastilles pour les emplacements de indicateurs
+        for(int i=0; i<=9; i++)
+        {
+            for(int y=0; y<=1; y++)
+            {
+                for(int x=0; x<=1; x++)
+                {
+                    setCircle(topleftx+350+(offsetIndicatorX*x), toplefty+89+(offsetIndicatorY*y)+(i*offsetIndicatorSet), LIGHTGREEN, 8);
+                }
+            }
+        }
+
+        if(ismouseclick(WM_LBUTTONDOWN))
+        {
+            int x0, y0;
+            getmouseclick(WM_LBUTTONDOWN, x0,y0);
+            printf("x0: %d yo: %d\n", x0, y0);
+            if(x0>10&&x0<50&&y0>10&&y0<50)
+            {
+                printf("YES\n");
+            }
+            else
+            {
+                printf("NO\n");
+            }
+
+            for(int y=0; y<=10; y++)
+            {
+                for(int x=0; x<=3; x++)
+                {
+                    if(x0>10&&x0<50&&y0>10&&y0<50)
+                    {
+                    printf("OUI\n");
+                    }
+
+
+                }
+            }
+        }
+
+
+
+
     }
-
-
-
-
-
-    //Garde la fenetre ouverte
-    system("pause");
-
-
     return 0;
 }
 
@@ -119,3 +152,14 @@ void setIndicators (int x, int y, int color, int rayon)
 
 }
 
+void init()
+{
+    int x, y;
+    for(x=0; x<11; x++)
+    {
+        for(y=0; y<4; y++)
+        {
+            tab[x][y]=LIGHTMAGENTA;
+        }
+    }
+}
