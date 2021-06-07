@@ -1,19 +1,13 @@
 #include <iostream>
 #include <graphics.h>
-#include <math.h>
 #include <stdio.h>
 #include <conio.h>
 #include <dos.h>
 #include <windows.h>
-
+#include <math.h>
 
 //using namespace std;
-int initPast = 0;
-
 int tab [11][4];
-//store X/Y position in separate array2D.. maybe we will find better later :X
-int tabPastilleX[11][4];
-int tabPastilleY[11][4];
 
 void init();
 
@@ -70,21 +64,20 @@ int main()
         setCircle(topleftx+45, 710, LIGHTMAGENTA);
         setCircle(topleftx+45, 790, LIGHTMAGENTA);
         */
-        if(initPast != 1)
+
+
+
+
+
+
+
+        //Affiche les pastilles marquant les emplacements des pions de couleurs
+        for(int y=0; y<=10; y++)
         {
-            //Affiche les pastilles marquant les emplacements des pions de couleurs
-            for(int y=0; y<=10; y++)
+            for(int x=0; x<=3; x++)
             {
-                for(int x=0; x<=3; x++)
-                {
-                    setCircle(topleftx+45+(offsetPastilleX*x), toplefty+45+(offsetPastilleY*y), tab[y][x], 22);
-                    //store Pastille Position in 2 seperate array
-                    tabPastilleX[y][x] = topleftx+45+(offsetPastilleX*x);
-                    tabPastilleY[y][x] = toplefty+45+(offsetPastilleY*y);
-                    printf("x0: %d yo: %d\n", tabPastilleX[y][x], tabPastilleY[y][x]);
-                }
+                setCircle(topleftx+45+(offsetPastilleX*x), toplefty+45+(offsetPastilleY*y), tab[y][x], 22);
             }
-            initPast = 1;
         }
 
         //Affiche les pastilles pour les emplacements de indicateurs
@@ -98,12 +91,32 @@ int main()
                 }
             }
         }
-        /*
+
         if(ismouseclick(WM_LBUTTONDOWN))
         {
             int x0, y0;
             getmouseclick(WM_LBUTTONDOWN, x0,y0);
             printf("x0: %d yo: %d\n", x0, y0);
+
+            for(int y=0; y<=10; y++)
+            {
+                for(int x=0; x<=3; x++)
+                {
+                    //if(x0(topleftx+45+(offsetPastilleX*x)) yo (toplefty+45+(offsetPastilleY*y)) 22);
+                    //if(sqrt (pow((topleftx+45+(offsetPastilleX*x)),2)+pow((toplefty+45+(offsetPastilleY*y)),2))<22)
+                    //if(sqrt((x0-(topleftx+45+(offsetPastilleX*x)))*(x0-(topleftx+45+(offsetPastilleX*x)))+(y0-(toplefty+45+(offsetPastilleY*y)))*(y0-(toplefty+45+(offsetPastilleY*y))))<22)
+                    if(sqrt(((topleftx+45+(offsetPastilleX*x))-x0)*((topleftx+45+(offsetPastilleX*x))-x0)+((toplefty+45+(offsetPastilleY*y))-y0)*((toplefty+45+(offsetPastilleY*y))-y0))<22)
+                    {
+                        printf("YES\n");
+                    }
+                    else
+                    {
+                        printf("NO\n");
+                    }
+                }
+            }
+
+            /*
             if(x0>10&&x0<50&&y0>10&&y0<50)
             {
                 printf("YES\n");
@@ -124,34 +137,10 @@ int main()
 
 
                 }
-            }
+            }*/
         }
-    */
-        if(ismouseclick(WM_LBUTTONDOWN))
-        {
-            int x0, y0;
-            getmouseclick(WM_LBUTTONDOWN, x0,y0);
 
-            float a = sqrt(2);
-            for(int y = 0; y < 11; y++)
-            {
-                for(int x = 0; x < 4; x++)
-                {
-                    if(sqrt(pow(x0-tabPastilleX[y][x],2) + pow((y0-tabPastilleY[y][x]),2)) < 22)
-                    {
-                        printf ("true y: %d x: %d", tabPastilleX[y][x], tabPastilleY[y][x]);
-                        setCircle(tabPastilleX[y][x],tabPastilleY[y][x],RED,22);
-                        break;
-                    }
-                    else
-                    {
-                        //printf ("false");
-                    }
-                }
 
-            }
-
-        }
 
 
     }
@@ -189,6 +178,7 @@ void setIndicators (int x, int y, int color, int rayon)
 
 }
 
+//couleurs pastilles
 void init()
 {
     int x, y;
@@ -198,5 +188,6 @@ void init()
         {
             tab[x][y]=LIGHTMAGENTA;
         }
+        //tab[0][0] = RED;
     }
 }
