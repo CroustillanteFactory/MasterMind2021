@@ -1,12 +1,19 @@
 #include <iostream>
 #include <graphics.h>
+#include <math.h>
 #include <stdio.h>
 #include <conio.h>
 #include <dos.h>
 #include <windows.h>
 
+
 //using namespace std;
+int initPast = 0;
+
 int tab [11][4];
+//store X/Y position in separate array2D.. maybe we will find better later :X
+int tabPastilleX[11][4];
+int tabPastilleY[11][4];
 
 void init();
 
@@ -63,15 +70,21 @@ int main()
         setCircle(topleftx+45, 710, LIGHTMAGENTA);
         setCircle(topleftx+45, 790, LIGHTMAGENTA);
         */
-
-        //Affiche les pastilles marquant les emplacements des pions de couleurs
-        for(int y=0; y<=10; y++)
+        if(initPast != 1)
         {
-            for(int x=0; x<=3; x++)
+            //Affiche les pastilles marquant les emplacements des pions de couleurs
+            for(int y=0; y<=10; y++)
             {
-                setCircle(topleftx+45+(offsetPastilleX*x), toplefty+45+(offsetPastilleY*y), tab[y][x], 22);
-
+                for(int x=0; x<=3; x++)
+                {
+                    setCircle(topleftx+45+(offsetPastilleX*x), toplefty+45+(offsetPastilleY*y), tab[y][x], 22);
+                    //store Pastille Position in 2 seperate array
+                    tabPastilleX[y][x] = topleftx+45+(offsetPastilleX*x);
+                    tabPastilleY[y][x] = toplefty+45+(offsetPastilleY*y);
+                    printf("x0: %d yo: %d\n", tabPastilleX[y][x], tabPastilleY[y][x]);
+                }
             }
+            initPast = 1;
         }
 
         //Affiche les pastilles pour les emplacements de indicateurs
@@ -85,7 +98,7 @@ int main()
                 }
             }
         }
-
+        /*
         if(ismouseclick(WM_LBUTTONDOWN))
         {
             int x0, y0;
@@ -113,8 +126,32 @@ int main()
                 }
             }
         }
+    */
+        if(ismouseclick(WM_LBUTTONDOWN))
+        {
+            int x0, y0;
+            getmouseclick(WM_LBUTTONDOWN, x0,y0);
 
+            float a = sqrt(2);
+            for(int y = 0; y < 11; y++)
+            {
+                for(int x = 0; x < 4; x++)
+                {
+                    if(sqrt(pow(x0-tabPastilleX[y][x],2) + pow((y0-tabPastilleY[y][x]),2)) < 22)
+                    {
+                        printf ("true y: %d x: %d", tabPastilleX[y][x], tabPastilleY[y][x]);
+                        setCircle(tabPastilleX[y][x],tabPastilleY[y][x],RED,22);
+                        break;
+                    }
+                    else
+                    {
+                        //printf ("false");
+                    }
+                }
 
+            }
+
+        }
 
 
     }
