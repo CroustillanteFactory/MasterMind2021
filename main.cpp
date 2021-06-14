@@ -26,6 +26,9 @@ int main()
     int offsetPastilleX = 75;
     int offsetPastilleY = 56;
 
+    int pastilleColor = 1;
+    int colorNumber = 1;
+
     //Gere l'espace entre les pastilles pour les indicateurs en x et y
     int offsetIndicatorX = 25;
     int offsetIndicatorY = 24;
@@ -92,6 +95,9 @@ int main()
             }
         }
 
+
+
+        //Check si le clique gauche a ete presse
         if(ismouseclick(WM_LBUTTONDOWN))
         {
             int x0, y0;
@@ -108,6 +114,8 @@ int main()
                     if(sqrt(((topleftx+45+(offsetPastilleX*x))-x0)*((topleftx+45+(offsetPastilleX*x))-x0)+((toplefty+45+(offsetPastilleY*y))-y0)*((toplefty+45+(offsetPastilleY*y))-y0))<22)
                     {
                         printf("YES\n");
+                        tab [y][x]= pastilleColor;
+                        colorNumber++;
                     }
                     else
                     {
@@ -116,30 +124,38 @@ int main()
                 }
             }
 
-            /*
-            if(x0>10&&x0<50&&y0>10&&y0<50)
+            //Ordre des couleurs BLUE GREEN RED YELLOW
+            if(colorNumber==1)
             {
-                printf("YES\n");
-            }
-            else
-            {
-                printf("NO\n");
+                pastilleColor=1;
             }
 
-            for(int y=0; y<=10; y++)
+            if(colorNumber==2)
             {
-                for(int x=0; x<=3; x++)
-                {
-                    if(x0>10&&x0<50&&y0>10&&y0<50)
-                    {
-                    printf("OUI\n");
-                    }
+                pastilleColor=2;
+            }
 
+            if(colorNumber==3)
+            {
+                pastilleColor=4;
+            }
 
-                }
-            }*/
+            if(colorNumber==4)
+            {
+                pastilleColor=14;
+                colorNumber=0;
+            }
         }
 
+
+        //Remet la valeur de la couleur de base
+        if(ismouseclick(WM_RBUTTONDOWN))
+        {
+            int x1, y1;
+            getmouseclick(WM_RBUTTONDOWN, x1, y1);
+            printf("Clique Droit\n");
+            pastilleColor=1;
+        }
 
 
 
